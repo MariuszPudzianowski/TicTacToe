@@ -22,8 +22,8 @@ public class GameWindow extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		boardButtons = new XOButton[3][3];
-		x = new ImageIcon(this.getClass().getResource("x.png"));
-		o = new ImageIcon(this.getClass().getResource("o.png"));
+		x = new ImageIcon("img/x.png");
+		o = new ImageIcon("img/o.png");
 		
 		splitPane = new JSplitPane();
 		splitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
