@@ -1,4 +1,4 @@
-package src;
+package tictatcoe;
 
 import java.awt.EventQueue;
 

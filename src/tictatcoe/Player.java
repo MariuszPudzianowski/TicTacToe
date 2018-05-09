@@ -1,4 +1,4 @@
-package src;
+package tictatcoe;
 
 public class Player {
 	private char symbol;

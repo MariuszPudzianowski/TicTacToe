@@ -1,4 +1,4 @@
-package src;
+package tictatcoe;
 
 public class Board {
 	private char[][] boardState = new char[3][3];

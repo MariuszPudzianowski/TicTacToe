@@ -1,4 +1,4 @@
-package src;
+package tictatcoe;
 
 public class Rulebook {
 

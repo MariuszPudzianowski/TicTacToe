@@ -1,4 +1,4 @@
-package src;
+package tictatcoe;
 
 import javax.swing.*;
 import java.awt.event.*;
