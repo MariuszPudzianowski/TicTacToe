@@ -2,7 +2,7 @@ package tictatcoe;
 
 public class Rulebook {
 
-	public boolean playerWon(char[][] boardState, char symbol) {
+	public boolean gameWon(char[][] boardState, char symbol) {
 		for (int i=0; i < 3; i++) {
 			if (boardState[i][0] == symbol && boardState[i][1] == symbol && boardState[i][2] == symbol) {
 				return true;
@@ -18,6 +18,11 @@ public class Rulebook {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean gameDrawn(Board board) {
+		return board.isFilled();
+			
 	}
 	
 }

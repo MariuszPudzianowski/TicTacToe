@@ -2,6 +2,7 @@ package tictatcoe;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 public class GameWindow extends JFrame {
@@ -94,18 +95,21 @@ public class GameWindow extends JFrame {
 		return indices;
 	}
 	
-	public void setBoardIconAt(int i, int j, char currentSymbol) {
+	public void setBoardIconAt(int[] indices, char currentSymbol) {
+		int r = indices[0];
+		int c = indices[1];
+		
 		switch(currentSymbol) {
 		case 'x':
-			boardButtons[i][j].setIcon(x);
-			boardButtons[i][j].setDisabledIcon(x);
+			boardButtons[r][c].setIcon(x);
+			boardButtons[r][c].setDisabledIcon(x);
 			break;
 		case 'o':
-			boardButtons[i][j].setIcon(o);
-			boardButtons[i][j].setDisabledIcon(o);
+			boardButtons[r][c].setIcon(o);
+			boardButtons[r][c].setDisabledIcon(o);
 			break;
 		}
-		boardButtons[i][j].setEnabled(false);
+		boardButtons[r][c].setEnabled(false);
 	}
 	
 	public void updateScore(int scoreX, int scoreO) {
@@ -116,6 +120,10 @@ public class GameWindow extends JFrame {
 	public void showEndGameDialog(Player currentPlayer) {
 		String endGameString = "Player '" + currentPlayer.getSymbol() + "' won!";
 		JOptionPane.showMessageDialog(this, endGameString);
+	}
+	
+	public void showDrawGameDialog() {
+		JOptionPane.showMessageDialog(this, "Game drawn!");
 	}
 	
 }

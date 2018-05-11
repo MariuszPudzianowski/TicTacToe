@@ -8,7 +8,7 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				Engine engine = new Engine(); // Presentation
+				Engine engine = new Engine(); // Presenter
 			}
 		});
 	}
@@ -16,7 +16,5 @@ public class Main {
 }
 /* 
  * TODO:
- * - handle exceptions
- * - handle draws
- * - if game didn't end, don't switch players on restart
+ * - change the score field to indicate players
  */

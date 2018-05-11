@@ -3,39 +3,50 @@ package tictatcoe;
 public class Game {
 	private Engine engine;
 	private Rulebook rulebook;
+	private Board board;
 	private Player playerX;
 	private Player playerO;
 	private Player startingPlayer;
 	private Player currentPlayer;
 	
-	/// constructors, getters and setters ///
+	private boolean ended;
+	
+	/// constructors, constructor-only methods, getters and setters ///
 	public Game(Engine engine) {
 		this.engine = engine;
 		rulebook  = new Rulebook();
+		board = new Board();
 		playerX = new Player('x');
 		playerO = new Player('o');
 		startingPlayer = playerX;
 		currentPlayer = startingPlayer;
+		
+		ended = false;
 	}
 	
 	public Game(Engine engine, Game lastGame) {
 		this.engine = engine;
 		rulebook  = new Rulebook();
+		board = new Board();
 		playerX = lastGame.playerX;
 		playerO = lastGame.playerO;
-		alterStartingPlayer(lastGame.getStartingPlayer());
+		startingPlayer = findStartingPlayer(lastGame.didEnd(), lastGame.getStartingPlayer());
 		currentPlayer = startingPlayer;
+	}
+	
+	private Player findStartingPlayer(boolean lastDidEnd, Player lastStartingPlayer) {
+		if (lastDidEnd) {
+			if (lastStartingPlayer == playerX)
+				return playerO;
+			else
+				return playerX;
+		} else {
+			return lastStartingPlayer;
+		}
 	}
 	
 	public Player getStartingPlayer() {
 		return startingPlayer;
-	}
-	
-	private void alterStartingPlayer(Player lastStartingPlayer) {
-		if (lastStartingPlayer == playerX)
-			startingPlayer = playerO;
-		else
-			startingPlayer = playerX;
 	}
 	
 	public Player getCurrentPlayer() {
@@ -46,12 +57,22 @@ public class Game {
 		currentPlayer = player;
 	}
 	
+	public boolean didEnd() {
+		return ended;
+	}
+	
 	/// other methods ///
-	public void nextMove(char[][] boardState) {
-		if (!rulebook.playerWon(boardState, currentPlayer.getSymbol()))
-			nextPlayer();
-		else
+	public void setBoardStateAt(int[] indices) {
+		board.setValueAt(indices[0], indices[1], currentPlayer.getSymbol());
+	}
+	
+	public void nextMove() {
+		if (rulebook.gameWon(board.getBoardState(), currentPlayer.getSymbol()))
 			end();
+		else if (rulebook.gameDrawn(board))
+			draw();
+		else
+			nextPlayer();
 	}
 	
 	private void nextPlayer() {
@@ -62,8 +83,13 @@ public class Game {
 	}
 	
 	private void end() {
+		ended = true;
 		currentPlayer.setScore(currentPlayer.getScore() + 1);
 		engine.endGameViewUpdate(currentPlayer, playerX.getScore(), playerO.getScore());
+	}
+	
+	private void draw() {
+		engine.drawGameViewUpdate(playerX.getScore(), playerO.getScore());
 	}
 	
 }
