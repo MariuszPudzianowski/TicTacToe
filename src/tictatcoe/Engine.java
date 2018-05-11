@@ -22,8 +22,8 @@ public class Engine {
 	}
 	
 	public void onRestartButtonClick() {
-		board.restartBoardState();
-		wnd.restartBoardButtons();
+		board.resetBoardState();
+		wnd.resetBoardButtons();
 		game = new Game(this, game);
 	}
 	

@@ -71,7 +71,7 @@ public class GameWindow extends JFrame {
 		}
 	}
 	
-	public void restartBoardButtons() {
+	public void resetBoardButtons() {
 		for (int i = 0; i < 3; i++) {
 		    for (int j = 0; j < 3; j++) {
 		    	boardButtons[i][j].setIcon(null);

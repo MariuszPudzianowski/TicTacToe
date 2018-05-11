@@ -8,7 +8,7 @@ public class Main {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				Engine engine = new Engine(); // Presentation
+				Engine engine = new Engine(); // Presenter
 			}
 		});
 	}
