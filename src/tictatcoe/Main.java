@@ -16,7 +16,5 @@ public class Main {
 }
 /* 
  * TODO:
- * - handle exceptions
- * - handle draws
- * - if game didn't end, don't switch players on restart
+ * - change the score field to indicate players
  */
