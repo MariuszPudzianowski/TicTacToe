@@ -6,36 +6,37 @@ public class Game {
 	private Board board;
 	private Player playerX;
 	private Player playerO;
-	private Player startingPlayer;
+	private final Player startingPlayer;
 	private Player currentPlayer;
 	
 	private boolean ended;
 	
 	/// constructors, constructor-only methods, getters and setters ///
-	public Game(Engine engine) {
-		this.engine = engine;
+	{
 		rulebook  = new Rulebook();
 		board = new Board();
-		playerX = new Player('x');
-		playerO = new Player('o');
-		startingPlayer = playerX;
-		currentPlayer = startingPlayer;
 		
 		ended = false;
 	}
 	
+	public Game(Engine engine) {
+		this.engine = engine;
+		playerX = new Player('x');
+		playerO = new Player('o');
+		startingPlayer = playerX;
+		currentPlayer = startingPlayer;
+	}
+	
 	public Game(Engine engine, Game lastGame) {
 		this.engine = engine;
-		rulebook  = new Rulebook();
-		board = new Board();
 		playerX = lastGame.playerX;
 		playerO = lastGame.playerO;
 		startingPlayer = findStartingPlayer(lastGame.didEnd(), lastGame.getStartingPlayer());
 		currentPlayer = startingPlayer;
 	}
 	
-	private Player findStartingPlayer(boolean lastDidEnd, Player lastStartingPlayer) {
-		if (lastDidEnd) {
+	private Player findStartingPlayer(boolean lastEnded, Player lastStartingPlayer) {
+		if (lastEnded) {
 			if (lastStartingPlayer == playerX)
 				return playerO;
 			else

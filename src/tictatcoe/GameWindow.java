@@ -2,34 +2,34 @@ package tictatcoe;
 
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
 
 public class GameWindow extends JFrame {
-	private JSplitPane splitPane;
+	private JSplitPane mainPanel;
 	
 	private JPanel boardPanel;
 	private XOButton[][] boardButtons;
 	private ImageIcon x, o;
 	
 	private JPanel userPanel;
-	private JTextField scoreField;
+	private ScorePanel scorePanel;
 	private RestartButton restartButton;
 	
 	public GameWindow(Engine engine) {
 		super("TicTacToe");
 		setSize(600, 400);
 		setResizable(false);
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		boardButtons = new XOButton[3][3];
 		x = new ImageIcon("img/x.png");
 		o = new ImageIcon("img/o.png");
 		
-		splitPane = new JSplitPane();
-		splitPane.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
-        splitPane.setDividerLocation(400);
-        splitPane.setEnabled(false);
+		mainPanel = new JSplitPane();
+		mainPanel.setOrientation(JSplitPane.HORIZONTAL_SPLIT);
+        mainPanel.setDividerLocation(370);
+        mainPanel.setEnabled(false);
 
 		boardPanel = new JPanel();
 		boardPanel.setLayout(new GridLayout(3, 3));
@@ -43,23 +43,17 @@ public class GameWindow extends JFrame {
 		userPanel = new JPanel();
 		userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.PAGE_AXIS));
 		
-		scoreField = new JTextField("0-0");
-		scoreField.setMaximumSize(new Dimension(100, 50));
-		scoreField.setAlignmentX(Component.CENTER_ALIGNMENT);
-		Font f = new Font(Font.DIALOG, Font.PLAIN, 40);
-		scoreField.setFont(f);
-		scoreField.setHorizontalAlignment(JTextField.CENTER);
-		scoreField.setEditable(false);
-		userPanel.add(scoreField);
+		scorePanel = new ScorePanel();
+		userPanel.add(scorePanel);
 		
 		userPanel.add(Box.createRigidArea(new Dimension(100, 30)));
 		
 		restartButton = new RestartButton(engine);
 		userPanel.add(restartButton);
 		
-        splitPane.setLeftComponent(boardPanel);
-        splitPane.setRightComponent(userPanel);
-		add(splitPane);
+        mainPanel.setLeftComponent(boardPanel);
+        mainPanel.setRightComponent(userPanel);
+		add(mainPanel);
 		
 		setVisible(true);
 	}
@@ -112,9 +106,12 @@ public class GameWindow extends JFrame {
 		boardButtons[r][c].setEnabled(false);
 	}
 	
+	public void resizeScoreField() {
+		scorePanel.resizeScoreField();
+	}
+	
 	public void updateScore(int scoreX, int scoreO) {
-		String scoreString = "" + scoreX + '-' + scoreO;
-		scoreField.setText(scoreString);
+		scorePanel.updateScore(scoreX, scoreO);
 	}
 	
 	public void showEndGameDialog(Player currentPlayer) {
